@@ -8,8 +8,9 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Cotizador {
+    public static  BigDecimal sumaTotal = new BigDecimal("0.00");
     public static void main(String[] args ) throws IOException {
-        BigDecimal sumaTotal = new BigDecimal("0.00");
+        //public static  BigDecimal sumaTotal = new BigDecimal("0.00");
         //BigDecimal sumaTotal= 0;
         //StockRetriever stockRetriever = new StockRetriever("TSLA");
         //System.out.println( "TESLA" +" "+ stockRetriever.getStockPrices());
@@ -19,13 +20,16 @@ public class Cotizador {
         long inicio =  System.nanoTime();
         for (String lista:listaCompany){
             StockRetriever intera = new StockRetriever(lista);
+            new Thread(intera, lista).start();
             //System.out.println( lista +" "+ intera.getStockPrices());
-            sumaTotal =sumaTotal.add(intera.getStockPrices());
+            //sumaTotal =sumaTotal.add(intera.valor);
+            sumaTotal =sumaTotal.add( intera.getStockPrices());
+
         }
         long fin =  System.nanoTime();
         System.out.println( "SUMA "+" "+sumaTotal);
-        System.out.println("Tiempo Ejecucion "+ (fin-inicio)/1000000000 +" Seg");
-        System.out.println("Tiempo Ejecucion "+ (fin-inicio));
+        System.out.println("Tiempo Ejecucion "+ (fin-inicio)/1000000000.00 +" Seg");
+        //System.out.println("Tiempo Ejecucion "+ (fin-inicio));
     }
 
     private static List<String> leeArchivo() throws IOException{

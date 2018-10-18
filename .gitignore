@@ -1,3 +1,4 @@
+.gradle
 .idea
 out/
 *.iml
@@ -6,3 +7,4 @@ out/
 *.class
 *.zipx
 *.pdf
+

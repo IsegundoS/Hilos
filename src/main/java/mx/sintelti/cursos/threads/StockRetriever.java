@@ -6,7 +6,7 @@ import yahoofinance.YahooFinance;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-public class StockRetriever {
+public class StockRetriever implements  Runnable {
     private String company;
 
     public StockRetriever(String company) {
@@ -18,6 +18,17 @@ public class StockRetriever {
         BigDecimal price = stock.getQuote().getPrice();
         //System.out.println("");
         return  price;
+    }
+
+    @Override
+    public  void  run() {
+        try {
+            //getStockPrices();
+            Stock stock = YahooFinance.get(company);
+            System.out.println(stock.getSymbol() + " - " + stock.getQuote().getPrice());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getCompany() {
