@@ -5,39 +5,22 @@ import yahoofinance.YahooFinance;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-
 public class StockRetriever implements  Runnable {
-    private String company;
-
-    public StockRetriever(String company) {
-        this.company = company;
+    private String compani;
+    StockRetriever(String compani){
+        this.compani = compani;
     }
-
-    public BigDecimal getStockPrices() throws IOException  {
-        Stock stock = YahooFinance.get(company);
-        BigDecimal price = stock.getQuote().getPrice();
-        //System.out.println("");
-        return  price;
-    }
-
     @Override
-    public  void  run() {
+    public void run() {
         try {
-            //getStockPrices();
-            Stock stock = YahooFinance.get(company);
-            System.out.println(stock.getSymbol() + " - " + stock.getQuote().getPrice());
-        } catch (IOException e) {
-            e.printStackTrace();
+            Stock stock = YahooFinance.get(compani);
+            BigDecimal price = stock.getQuote().getPrice();
+            //stock.print();
+            StocksMain.sumar(price);// = TestStock.suma.add(price);
+            //System.out.println(TestStock.suma);
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
         }
     }
-
-    /**
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }*/
 
 }
